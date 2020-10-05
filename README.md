@@ -15,13 +15,13 @@ Example Playbook
 ----------------
 
 ```
-- name: Create VM 'test'
+- name: Create VM 'test' (CentOS)
   hosts: "{{ hosts }}"
   remote_user: "{{ user }}"
   tasks:
   - include_role:
       name: vm_creation
-      tasks_from: install
+      tasks_from: install_centos
     vars:
       vm_ip: "{{ vm_ip }}"
       vm_name: test
