@@ -1,6 +1,6 @@
 # Ansible Role : VM creation
 
-Ansible Role for CanaimaProject's VM creation.
+Ansible Role for Canaima Project's VM creation.
 
 This role is used to automate VMs creation in order to deploy services on them.
 
