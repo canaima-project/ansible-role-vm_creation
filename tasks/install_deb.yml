@@ -1,7 +1,7 @@
 ---
-- name: Install zabbix-api
-  pip:
-    name: zabbix-api
+# - name: Install zabbix-api
+#   pip:
+#     name: zabbix-api
 
 - name: Git clone .ova template
   command: "git clone {{ ova_repo }}"
