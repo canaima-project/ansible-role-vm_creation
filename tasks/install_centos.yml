@@ -8,8 +8,8 @@
   - name: Change permissions on ova
     file:
       path: "{{ path_to_ova }}"
-      owner: ansible
-      group: ansible
+      owner: etudiant
+      group: etudiant
       mode : '0777'
   
   - name: Set up Vbox default dir
