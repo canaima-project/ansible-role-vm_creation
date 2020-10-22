@@ -61,13 +61,19 @@
   
   - name: Change default UUID in /etc/sysconfig/network-scripts/ifcfg-enp0s3
     lineinfile: 
-      dest: /etc/sysconfig/network-scripts/ifcfg-enp0s3
-      state: absent 
+      dest: /etc/sysconfig/network-scripts/ifcfg-enp0s3 
       regexp: "^UUID"
+      line: "AAA"
     delegate_to: "{{ template_ip }}"
     remote_user: ansible
     become: true
   
+  - name: Generate new UUID and put it into ifcfg-enp0s3
+    shell: sed -i "s/AAA/UUID=$(uuidgen)/" /etc/sysconfig/network-scripts/ifcfg-enp0s3
+    delegate_to: "{{ template_ip }}"
+    remote_user: ansible
+    become: true
+
   - name: "Reboot {{ vm_name }}"
     reboot:
       reboot_timeout: 10
