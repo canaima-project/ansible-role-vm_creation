@@ -15,11 +15,7 @@
   - name: Create nfs shared directory
     file:
       path: /Data/etudiant/nfs
-      owner: etudiant
-      group: etudiant
-      mode: '0755'
       state: directory
-    become: true
 
   - name: Mount NFS Shares
     shell: mount 192.168.4.177:/var/nfs /Data/etudiant/nfs
