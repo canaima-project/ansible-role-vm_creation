@@ -84,19 +84,27 @@
     remote_user: ansible
     become: true
   
-  - name: Create hadoop user
+  - name: Create hadoop user passwd hadoop
     user:
       name: hadoop
       shell: /bin/bash
       password: $6$mysecretsalt$nuOEnCj72hwu5GCG3b5gl.oOCeKR6h31FbK1msMHs.NEKlWRh6fZB2SlgCJf9MF05zoN0yFZ72YexhssrYbxy1
-      groups: whell, hadoop
+      groups: wheel, hadoop
       createhome: yes
-  
+    delegate_to: "{{ template_ip }}"
+    remote_user: ansible
+    become: true
+    when: is_hadoop
+
   - name: Allow hadoop user to have passwordless sudo
     lineinfile:
       path: /etc/sudoers
       state: present
       line: 'hadoop ALL=(ALL:ALL) NOPASSWD:ALL'
+    delegate_to: "{{ template_ip }}"
+    remote_user: ansible
+    become: true
+    when: is_hadoop
 
   - name: "Reboot {{ vm_name }}"
     reboot:
