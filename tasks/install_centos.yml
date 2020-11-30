@@ -106,6 +106,28 @@
     become: true
     when: is_hadoop
 
+  - name: Generate SSH key for hadoop user
+    shell: ssh-keygen -t rsa -f /home/hadoop/.ssh/id_rsa -N passphrase
+    delegate_to: "{{ template_ip }}"
+    remote_user: hadoop
+    become: false
+    when: is_hadoop
+
+  - name: Copy the key to ~/.ssh/authorized_keys
+    shell: cat /home/hadoop/.ssh/id_rsa.pub >> /home/hadoop/.ssh/authorized_keys
+    delegate_to: "{{ template_ip }}"
+    remote_user: hadoop
+    become: false
+    when: is_hadoop
+
+  - name: Change permissions on ~/.ssh/authorized_keys
+    file:
+      path: /home/hadoop/.ssh/authorized_keys
+      mode: '0600'
+    delegate_to: "{{ template_ip }}"
+    remote_user: hadoop
+    become: false
+    when: is_hadoop
   - name: "Reboot {{ vm_name }}"
     reboot:
       reboot_timeout: 10
