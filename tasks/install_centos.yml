@@ -128,6 +128,7 @@
     remote_user: hadoop
     become: false
     when: is_hadoop
+
   - name: "Reboot {{ vm_name }}"
     reboot:
       reboot_timeout: 10
